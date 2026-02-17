@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes"
+    />
+    <title>✨ mich · binary/hex/decimal/text/encoding converter</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(145deg, #0b0e14 0%, #1a1f2a 100%);
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        color: #eef2fb;
+      }
+
+      .container {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .generator-card {
+        background: rgba(18, 24, 33, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(147, 112, 219, 0.25);
+        border-radius: 48px 48px 40px 40px;
+        padding: 2.2rem 2rem;
+        box-shadow:
+          0 20px 40px -12px rgba(0, 0, 0, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      }
+
+      .top-badge {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.2rem;
+        flex-wrap: wrap;
+      }
+
+      .title-group {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+
+      .title-group i {
+        font-size: 2.2rem;
+        color: #b19cd9;
+        filter: drop-shadow(0 0 6px #9370db88);
+      }
+
+      h1 {
+        font-weight: 650;
+        font-size: 1.9rem;
+        letter-spacing: -0.01em;
+        background: linear-gradient(120deg, #f0f9ff, #e1c7ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .mode-badge {
+        background: #1e2b3c;
+        padding: 0.4rem 1.4rem;
+        border-radius: 100px;
+        border: 1px solid #b19cd9;
+        color: #d9c7ff;
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .input-section {
+        background: #0c111b;
+        border-radius: 28px;
+        padding: 0.2rem;
+        border: 1px solid #b19cd9;
+        box-shadow: 0 8px 0 #06080c;
+        margin-bottom: 2rem;
+      }
+
+      .input-container {
+        background: #0b0f16;
+        border-radius: 28px;
+        padding: 1.8rem;
+        border-bottom: 1px solid #b19cd9;
+      }
+
+      .input-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #d9c7ff;
+        margin-bottom: 0.8rem;
+      }
+
+      .input-field {
+        width: 100%;
+        background: #111c26;
+        border: 1.5px solid #b19cd9;
+        border-radius: 20px;
+        padding: 1.2rem 1.5rem;
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 1.2rem;
+        color: #ffefd1;
+        outline: none;
+      }
+
+      .input-field:focus {
+        border-color: #9370db;
+        box-shadow: 0 0 15px #9370db70;
+      }
+
+      .input-field::placeholder {
+        color: #4f5d6e;
+      }
+
+      .mode-selector {
+        display: flex;
+        gap: 0.8rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .mode-btn {
+        background: #111c26;
+        border: 1.5px solid #4f5d6e;
+        border-radius: 30px;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #c7d9ff;
+        cursor: pointer;
+        transition: 0.15s;
+        font-weight: 500;
+      }
+
+      .mode-btn i {
+        color: #b19cd9;
+      }
+
+      .mode-btn.active {
+        background: #2a1f4a;
+        border-color: #b19cd9;
+        color: white;
+        box-shadow: 0 0 15px #9370db70;
+      }
+
+      .mode-btn:hover {
+        background: #1a2c3a;
+        border-color: #b19cd9;
+      }
+
+      .encoding-selector {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        background: #111c26;
+        padding: 1rem;
+        border-radius: 20px;
+        border: 1px solid #b19cd9;
+      }
+
+      .encoding-label {
+        color: #d9c7ff;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .encoding-select {
+        background: #0b0f16;
+        border: 1px solid #b19cd9;
+        border-radius: 15px;
+        padding: 0.8rem 1.5rem;
+        color: #ffefd1;
+        font-size: 1rem;
+        cursor: pointer;
+        outline: none;
+      }
+
+      .encoding-select option {
+        background: #111c26;
+        color: #ffefd1;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.2rem;
+        margin-top: 2rem;
+      }
+
+      .result-card {
+        background: #111c26;
+        border: 1px solid #b19cd9;
+        border-radius: 24px;
+        padding: 1.5rem;
+        transition: 0.15s;
+      }
+
+      .result-card:hover {
+        background: #1a2d3a;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(147, 112, 219, 0.3);
+      }
+
+      .result-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #d9c7ff;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .result-header i {
+        font-size: 1.2rem;
+        color: #b19cd9;
+      }
+
+      .result-value {
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 1rem;
+        color: #ffefd1;
+        word-break: break-all;
+        background: #0b0f16;
+        padding: 1rem;
+        border-radius: 15px;
+        border: 1px solid #4f5d6e;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+
+      .copy-btn {
+        background: none;
+        border: 1px solid #b19cd9;
+        color: #d9c7ff;
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.9rem;
+      }
+
+      .copy-btn:hover {
+        background: #2a1f4a;
+      }
+
+      .text-stats {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        color: #d9c7ff;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        background: #111c26;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: 1px solid #b19cd9;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: flex-end;
+        margin-top: 1rem;
+      }
+
+      .icon-btn {
+        background: #1d2a36;
+        border: none;
+        color: #d9c7ff;
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 0.16s;
+        border: 1px solid #b19cd9;
+        box-shadow: 0 5px 0 #0e141c;
+      }
+
+      .icon-btn:hover {
+        background: #2a1f4a;
+        color: white;
+        border-color: #9370db;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 0 #0e141c;
+      }
+
+      .icon-btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 #0e141c;
+      }
+
+      .icon-btn.large {
+        width: auto;
+        padding: 0 2rem;
+        gap: 0.5rem;
+      }
+
+      .history-area {
+        background: rgba(5, 13, 19, 0.7);
+        border-radius: 24px;
+        padding: 1.4rem 1.7rem;
+        backdrop-filter: blur(8px);
+        border: 1px solid #b19cd9;
+        margin-top: 1.5rem;
+      }
+
+      .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .history-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        max-height: 110px;
+        overflow-y: auto;
+      }
+
+      .history-item {
+        background: #0e1d29;
+        border-radius: 18px;
+        padding: 0.55rem 1.2rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+        border-left: 4px solid #b19cd9;
+        color: #d9c7ff;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        cursor: pointer;
+      }
+
+      .history-item:hover {
+        background: #1a2d3a;
+      }
+
+      .clear-history {
+        background: none;
+        border: 1px solid #b19cd9;
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        color: #d9c7ff;
+        cursor: pointer;
+      }
+
+      .footnote {
+        margin-top: 1.2rem;
+        text-align: center;
+        color: #93b6c9;
+        font-size: 0.75rem;
+      }
+
+      .char-table {
+        margin-top: 2rem;
+        background: #111c26;
+        border: 1px solid #b19cd9;
+        border-radius: 24px;
+        padding: 1.5rem;
+      }
+
+      .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: #d9c7ff;
+      }
+
+      .char-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 0.5rem;
+      }
+
+      .char-row {
+        display: grid;
+        grid-template-columns: 50px 80px 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        background: #0b0f16;
+        border-radius: 10px;
+        border: 1px solid #4f5d6e;
+        font-family: monospace;
+      }
+
+      .char-index {
+        color: #b19cd9;
+      }
+      .char-hex {
+        color: #ffb86b;
+      }
+      .char-dec {
+        color: #6bc8ff;
+      }
+      .char-char {
+        color: #ffefd1;
+        font-weight: 600;
+      }
+
+      @media (max-width: 550px) {
+        .generator-card {
+          padding: 1.5rem;
+        }
+        .results-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="generator-card">
+        <div class="top-badge">
+          <div class="title-group">
+            <i class="fas fa-code"></i>
+            <h1>base·mich</h1>
+          </div>
+          <div class="mode-badge">
+            <i class="fas fa-arrow-right-arrow-left"></i>
+            <span id="currentMode">Number Mode</span>
+          </div>
+        </div>
+
+        <div class="input-section">
+          <div class="input-container">
+            <div class="input-label">
+              <i class="fas fa-pencil"></i>
+              <span id="inputLabel">Enter a number (decimal)</span>
+            </div>
+
+            <div class="mode-selector">
+              <div class="mode-btn active" data-mode="number">
+                <i class="fas fa-calculator"></i> Number Mode
+              </div>
+              <div class="mode-btn" data-mode="text">
+                <i class="fas fa-font"></i> Text Mode
+              </div>
+            </div>
+
+            <input
+              type="text"
+              id="mainInput"
+              class="input-field"
+              placeholder="Enter value..."
+              value="255"
+            />
+
+            <div class="encoding-selector" id="encodingSelector">
+              <div class="encoding-label">
+                <i class="fas fa-globe"></i> Character Encoding:
+              </div>
+              <select id="encodingSelect" class="encoding-select">
+                <option value="ascii">ASCII (7-bit)</option>
+                <option value="utf8" selected>UTF-8 (Unicode)</option>
+                <option value="utf16">UTF-16</option>
+                <option value="latin1">ISO-8859-1 (Latin-1)</option>
+                <option value="cp1252">Windows-1252</option>
+              </select>
+            </div>
+
+            <div id="textStats" style="display: none" class="text-stats">
+              <div class="stat-item">
+                <i class="fas fa-text"></i> Characters:
+                <span id="charCount">0</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-font"></i> Words: <span id="wordCount">0</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-code"></i> Bytes: <span id="byteCount">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-grid" id="resultsGrid">
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-0"></i> Binary (Base 2)
+            </div>
+            <div class="result-value" id="binaryResult">11111111</div>
+            <button class="copy-btn" data-copy="binary">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-9"></i> Decimal (Base 10)
+            </div>
+            <div class="result-value" id="decimalResult">255</div>
+            <button class="copy-btn" data-copy="decimal">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-8"></i> Octal (Base 8)
+            </div>
+            <div class="result-value" id="octalResult">377</div>
+            <button class="copy-btn" data-copy="octal">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-hashtag"></i> Hexadecimal (Base 16)
+            </div>
+            <div class="result-value" id="hexResult">FF</div>
+            <button class="copy-btn" data-copy="hex">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-font"></i> Text / Character
+            </div>
+            <div class="result-value" id="textResult">ÿ</div>
+            <button class="copy-btn" data-copy="text">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-microchip"></i> Raw Bytes (Hex)
+            </div>
+            <div class="result-value" id="bytesResult">0xFF</div>
+            <button class="copy-btn" data-copy="bytes">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-code"></i> UTF-8 Bytes
+            </div>
+            <div class="result-value" id="utf8Result">0xC3 0xBF</div>
+            <button class="copy-btn" data-copy="utf8">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <i class="fas fa-universal-access"></i> Unicode Code Point
+            </div>
+            <div class="result-value" id="unicodeResult">U+00FF</div>
+            <button class="copy-btn" data-copy="unicode">
+              <i class="far fa-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="char-table" id="charTable">
+          <div class="table-header">
+            <span><i class="fas fa-table"></i> Character Breakdown</span>
+            <span class="stat-item"
+              ><i class="fas fa-cube"></i>
+              <span id="tableCount">1</span> characters</span
+            >
+          </div>
+          <div class="char-grid" id="charGrid"></div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="icon-btn large" id="swapBtn">
+            <i class="fas fa-arrow-right-arrow-left"></i> Swap Mode
+          </button>
+          <button class="icon-btn" id="copyAllBtn" title="Copy All Results">
+            <i class="fas fa-copy"></i>
+          </button>
+          <button class="icon-btn" id="clearBtn" title="Clear Input">
+            <i class="fas fa-eraser"></i>
+          </button>
+        </div>
+
+        <div class="history-area">
+          <div class="history-header">
+            <span
+              ><i class="fas fa-clock-rotate-left"></i> conversion history</span
+            >
+            <button class="clear-history" id="clearHistoryBtn">
+              <i class="fas fa-trash-alt"></i> clear
+            </button>
+          </div>
+          <div class="history-list" id="historyList"></div>
+        </div>
+
+        <div class="footnote">
+          <i class="fas fa-sparkles"></i> Supports: Binary · Decimal · Octal ·
+          Hex · ASCII · UTF-8 · UTF-16 · Unicode
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const mainInput = document.getElementById("mainInput");
+        const inputLabel = document.getElementById("inputLabel");
+        const currentMode = document.getElementById("currentMode");
+        const modeBtns = document.querySelectorAll(".mode-btn");
+        const encodingSelect = document.getElementById("encodingSelect");
+        const encodingSelector = document.getElementById("encodingSelector");
+        const textStats = document.getElementById("textStats");
+        const charCount = document.getElementById("charCount");
+        const wordCount = document.getElementById("wordCount");
+        const byteCount = document.getElementById("byteCount");
+        const charGrid = document.getElementById("charGrid");
+        const tableCount = document.getElementById("tableCount");
+
+        const binaryResult = document.getElementById("binaryResult");
+        const decimalResult = document.getElementById("decimalResult");
+        const octalResult = document.getElementById("octalResult");
+        const hexResult = document.getElementById("hexResult");
+        const textResult = document.getElementById("textResult");
+        const bytesResult = document.getElementById("bytesResult");
+        const utf8Result = document.getElementById("utf8Result");
+        const unicodeResult = document.getElementById("unicodeResult");
+
+        const swapBtn = document.getElementById("swapBtn");
+        const copyAllBtn = document.getElementById("copyAllBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+        const historyList = document.getElementById("historyList");
+        const copyBtns = document.querySelectorAll(".copy-btn");
+
+        let currentMode_ = "number";
+        let history = [];
+
+        function toUTF8Bytes(str) {
+          const encoder = new TextEncoder();
+          return Array.from(encoder.encode(str));
+        }
+
+        function toUTF16Bytes(str) {
+          const bytes = [];
+          for (let i = 0; i < str.length; i++) {
+            const code = str.charCodeAt(i);
+            bytes.push((code >> 8) & 0xff);
+            bytes.push(code & 0xff);
+          }
+          return bytes;
+        }
+
+        function toLatin1Bytes(str) {
+          const bytes = [];
+          for (let i = 0; i < str.length; i++) {
+            const code = str.charCodeAt(i);
+            bytes.push(code <= 255 ? code : 63);
+          }
+          return bytes;
+        }
+
+        function getBytes(str, encoding) {
+          switch (encoding) {
+            case "ascii":
+              return str
+                .split("")
+                .map((c) => (c.charCodeAt(0) <= 127 ? c.charCodeAt(0) : 63));
+            case "utf8":
+              return toUTF8Bytes(str);
+            case "utf16":
+              return toUTF16Bytes(str);
+            case "latin1":
+              return toLatin1Bytes(str);
+            case "cp1252":
+              return toLatin1Bytes(str);
+            default:
+              return toUTF8Bytes(str);
+          }
+        }
+
+        function formatBytesAsHex(bytes) {
+          return bytes
+            .map((b) => "0x" + b.toString(16).toUpperCase().padStart(2, "0"))
+            .join(" ");
+        }
+
+        function formatBytesAsBinary(bytes) {
+          return bytes.map((b) => b.toString(2).padStart(8, "0")).join(" ");
+        }
+
+        function getUnicodeCodePoint(str) {
+          if (str.length === 0) return [];
+          return str
+            .split("")
+            .map(
+              (c) =>
+                "U+" +
+                c.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0"),
+            );
+        }
+
+        function detectInputType(str) {
+          str = str.trim();
+          if (str === "") return "unknown";
+
+          if (/^[01\s]+$/.test(str.replace(/\s/g, ""))) return "binary";
+
+          if (/^(0x)?[0-9A-Fa-f\s]+$/.test(str.replace(/\s/g, ""))) {
+            const clean = str.replace(/\s/g, "").toLowerCase();
+            if (/^[0-9a-f]+$/.test(clean.replace(/^0x/, ""))) {
+              if (/[a-f]/.test(clean.replace(/^0x/, ""))) return "hex";
+              if (clean.startsWith("0x")) return "hex";
+            }
+          }
+
+          if (/^0[0-7]+$/.test(str.replace(/\s/g, ""))) return "octal";
+
+          if (/^\d+$/.test(str.replace(/\s/g, ""))) return "decimal";
+
+          return "text";
+        }
+
+        function fromDecimal(decimal) {
+          if (isNaN(decimal) || decimal < 0) {
+            return {
+              binary: "Invalid",
+              octal: "Invalid",
+              decimal: "Invalid",
+              hex: "Invalid",
+              text: "?",
+              bytes: "Invalid",
+              utf8: "Invalid",
+              unicode: "Invalid",
+            };
+          }
+
+          const num = Math.floor(decimal);
+          const char = num <= 0x10ffff ? String.fromCodePoint(num) : "?";
+
+          return {
+            binary: num.toString(2),
+            octal: num.toString(8),
+            decimal: num.toString(),
+            hex: num.toString(16).toUpperCase(),
+            text: char,
+            bytes: "0x" + num.toString(16).toUpperCase().padStart(2, "0"),
+            utf8: formatBytesAsHex(toUTF8Bytes(char)),
+            unicode: "U+" + num.toString(16).toUpperCase().padStart(4, "0"),
+          };
+        }
+
+        function binaryToDecimal(binary) {
+          const clean = binary.replace(/\s/g, "");
+          if (!/^[01]+$/.test(clean)) return NaN;
+          return parseInt(clean, 2);
+        }
+
+        function octalToDecimal(octal) {
+          const clean = octal.replace(/\s/g, "");
+          if (!/^[0-7]+$/.test(clean)) return NaN;
+          return parseInt(clean, 8);
+        }
+
+        function hexToDecimal(hex) {
+          const clean = hex.replace(/\s/g, "").replace(/^0x/i, "");
+          if (!/^[0-9A-Fa-f]+$/.test(clean)) return NaN;
+          return parseInt(clean, 16);
+        }
+
+        function processText(text, encoding) {
+          if (text.length === 0) {
+            return {
+              binary: "",
+              decimal: "",
+              octal: "",
+              hex: "",
+              text: "",
+              bytes: "",
+              utf8: "",
+              unicode: "",
+            };
+          }
+
+          const bytes = getBytes(text, encoding);
+          const chars = text.split("");
+          const decimals = chars.map((c) => c.charCodeAt(0));
+          const binaries = chars
+            .map((c) => c.charCodeAt(0).toString(2).padStart(8, "0"))
+            .join(" ");
+          const octals = chars
+            .map((c) => c.charCodeAt(0).toString(8).padStart(3, "0"))
+            .join(" ");
+          const hexes = chars
+            .map((c) =>
+              c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"),
+            )
+            .join(" ");
+          const unicodePoints = getUnicodeCodePoint(text).join(" ");
+
+          return {
+            binary: binaries,
+            decimal: decimals.join(" "),
+            octal: octals,
+            hex: hexes,
+            text: text,
+            bytes: formatBytesAsHex(bytes),
+            utf8: formatBytesAsHex(toUTF8Bytes(text)),
+            unicode: unicodePoints,
+          };
+        }
+
+        function updateCharTable(text) {
+          if (text.length === 0) {
+            charGrid.innerHTML =
+              '<div style="color:#d9c7ff; padding:1rem; text-align:center;">No characters to display</div>';
+            tableCount.textContent = "0";
+            return;
+          }
+
+          let html = "";
+          const chars = text.split("");
+
+          chars.forEach((char, index) => {
+            const code = char.charCodeAt(0);
+            const hex = code.toString(16).toUpperCase().padStart(2, "0");
+            const binary = code.toString(2).padStart(8, "0");
+
+            html += `
+          <div class="char-row">
+            <span class="char-index">#${index + 1}</span>
+            <span class="char-hex">0x${hex}</span>
+            <span class="char-dec">${code}</span>
+            <span class="char-char">${char === " " ? "␣" : char === "\n" ? "↵" : char}</span>
+          </div>
+        `;
+          });
+
+          charGrid.innerHTML = html;
+          tableCount.textContent = chars.length;
+        }
+
+        function updateAll() {
+          const input = mainInput.value;
+          const encoding = encodingSelect.value;
+
+          if (currentMode_ === "number") {
+            textStats.style.display = "none";
+            encodingSelector.style.display = "flex";
+
+            const inputType = detectInputType(input);
+            let decimal = NaN;
+
+            if (inputType === "decimal") {
+              decimal = parseInt(input.replace(/\s/g, ""), 10);
+            } else if (inputType === "binary") {
+              decimal = binaryToDecimal(input);
+            } else if (inputType === "octal") {
+              decimal = octalToDecimal(input);
+            } else if (inputType === "hex") {
+              decimal = hexToDecimal(input);
+            } else if (inputType === "text") {
+              const clean = input.replace(/\s/g, "");
+              if (/^\d+$/.test(clean)) {
+                decimal = parseInt(clean, 10);
+              } else {
+                showInvalid();
+                return;
+              }
+            } else {
+              showInvalid();
+              return;
+            }
+
+            inputLabel.innerHTML = `<i class="fas fa-pencil"></i> Enter a number (${inputType})`;
+
+            if (isNaN(decimal) || decimal < 0) {
+              showInvalid();
+              return;
+            }
+
+            const converted = fromDecimal(decimal);
+            updateResults(converted);
+
+            updateCharTable(converted.text);
+
+            addToHistory(`${converted.decimal} (dec) = ${converted.hex} (hex)`);
+          } else {
+            textStats.style.display = "flex";
+            encodingSelector.style.display = "flex";
+            inputLabel.innerHTML = `<i class="fas fa-pencil"></i> Enter text to convert (${encoding})`;
+
+            const bytes = getBytes(input, encoding);
+            const byteLength = bytes.length;
+
+            charCount.textContent = input.length;
+            wordCount.textContent = input.trim()
+              ? input.trim().split(/\s+/).length
+              : 0;
+            byteCount.textContent = byteLength;
+
+            if (input.length === 0) {
+              clearResults();
+              updateCharTable("");
+              return;
+            }
+
+            const converted = processText(input, encoding);
+            updateResults(converted);
+            updateCharTable(input);
+
+            const shortText =
+              input.length > 20 ? input.substring(0, 17) + "..." : input;
+            addToHistory(
+              `"${shortText}" → ${converted.hex.substring(0, 20)}...`,
+            );
+          }
+        }
+
+        function showInvalid() {
+          const results = {
+            binary: "Invalid",
+            decimal: "Invalid",
+            octal: "Invalid",
+            hex: "Invalid",
+            text: "?",
+            bytes: "Invalid",
+            utf8: "Invalid",
+            unicode: "Invalid",
+          };
+          updateResults(results);
+          updateCharTable("");
+        }
+
+        function clearResults() {
+          const results = {
+            binary: "",
+            decimal: "",
+            octal: "",
+            hex: "",
+            text: "",
+            bytes: "",
+            utf8: "",
+            unicode: "",
+          };
+          updateResults(results);
+        }
+
+        function updateResults(r) {
+          binaryResult.textContent = r.binary;
+          decimalResult.textContent = r.decimal;
+          octalResult.textContent = r.octal;
+          hexResult.textContent = r.hex;
+          textResult.textContent = r.text;
+          bytesResult.textContent = r.bytes;
+          utf8Result.textContent = r.utf8;
+          unicodeResult.textContent = r.unicode;
+        }
+
+        function switchMode(mode) {
+          currentMode_ = mode;
+
+          modeBtns.forEach((btn) => {
+            if (btn.dataset.mode === mode) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+
+          currentMode.textContent =
+            mode === "number" ? "Number Mode" : "Text Mode";
+
+          if (mode === "number") {
+            mainInput.placeholder = "Enter binary, decimal, octal, or hex...";
+            textStats.style.display = "none";
+          } else {
+            mainInput.placeholder = "Enter text to convert...";
+            textStats.style.display = "flex";
+          }
+
+          mainInput.value = mode === "number" ? "255" : "Hello World!";
+          updateAll();
+        }
+
+        function addToHistory(entry) {
+          if (history[0] === entry) return;
+          history.unshift(entry);
+          if (history.length > 6) history.pop();
+          renderHistory();
+        }
+
+        function renderHistory() {
+          if (history.length === 0) {
+            historyList.innerHTML =
+              '<div style="color:#d9c7ff; padding:0.4rem;">✨ recent conversions</div>';
+            return;
+          }
+
+          let html = "";
+          history.forEach((item, index) => {
+            html += `<div class="history-item" data-index="${index}">
+                    <i class="fas fa-history"></i>
+                    <span>${item}</span>
+                </div>`;
+          });
+          historyList.innerHTML = html;
+        }
+
+        function copyToClipboard(text) {
+          navigator.clipboard.writeText(text).then(() => {
+            document.body.style.backgroundColor = "#2a1f4a";
+            setTimeout(() => (document.body.style.backgroundColor = ""), 200);
+          });
+        }
+
+        function copyAll() {
+          const all = `Binary: ${binaryResult.textContent}
+Decimal: ${decimalResult.textContent}
+Octal: ${octalResult.textContent}
+Hex: ${hexResult.textContent}
+Text: ${textResult.textContent}
+Bytes: ${bytesResult.textContent}
+UTF-8: ${utf8Result.textContent}
+Unicode: ${unicodeResult.textContent}`;
+          copyToClipboard(all);
+        }
+
+        mainInput.addEventListener("input", updateAll);
+        encodingSelect.addEventListener("change", updateAll);
+
+        modeBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            switchMode(btn.dataset.mode);
+          });
+        });
+
+        swapBtn.addEventListener("click", () => {
+          switchMode(currentMode_ === "number" ? "text" : "number");
+        });
+
+        copyAllBtn.addEventListener("click", copyAll);
+
+        clearBtn.addEventListener("click", () => {
+          mainInput.value = "";
+          updateAll();
+        });
+
+        clearHistoryBtn.addEventListener("click", () => {
+          history = [];
+          renderHistory();
+        });
+
+        copyBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const type = this.dataset.copy;
+            let text = "";
+
+            switch (type) {
+              case "binary":
+                text = binaryResult.textContent;
+                break;
+              case "decimal":
+                text = decimalResult.textContent;
+                break;
+              case "octal":
+                text = octalResult.textContent;
+                break;
+              case "hex":
+                text = hexResult.textContent;
+                break;
+              case "text":
+                text = textResult.textContent;
+                break;
+              case "bytes":
+                text = bytesResult.textContent;
+                break;
+              case "utf8":
+                text = utf8Result.textContent;
+                break;
+              case "unicode":
+                text = unicodeResult.textContent;
+                break;
+            }
+
+            copyToClipboard(text);
+          });
+        });
+
+        switchMode("number");
+      })();
+    </script>
+  </body>
+</html>

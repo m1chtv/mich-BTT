@@ -1,13 +1,18 @@
 # mich·BTT
 
-A simple, browser-based **BTT (Body Temperature Tracker)** built for quick daily logging and visualization.
+A fast, browser-based **Binary / Hex / Decimal / Text / Encoding Converter** for developers.
 
 ## Features
-- Log your **body temperature** with date/time
-- Auto-stored entries in local history (client-side)
-- Clear list view of past measurements
+- Convert between:
+  - Binary
+  - Decimal
+  - Hexadecimal
+  - Text (ASCII / UTF-8)
+- Encoding & decoding support
+- Instant, real-time conversion
+- Auto sync between all formats
 - Clean, minimal, responsive UI
-- Quick delete and copy entries
+- One-click copy for each output
 
 ## Tech Stack
 - HTML5
@@ -15,12 +20,12 @@ A simple, browser-based **BTT (Body Temperature Tracker)** built for quick daily
 - Vanilla JavaScript
 
 ## How to Use
-1. Open `index.html` in any modern browser.  
-2. Input your **temperature** and submit.  
-3. View history below — all stored locally.  
-4. Delete or reuse past values as needed.
+1. Open `index.html` in any modern browser.
+2. Enter a value in **any** field.
+3. Other formats update instantly.
+4. Copy the result you need.
 
 ## Notes
-- 100% local storage — no backend, no cloud  
-- Designed for usability and speed  
-- Works offline in browser 
+- 100% client-side — no backend, no tracking
+- Works fully offline
+- Built for speed, accuracy, and dev workflows
